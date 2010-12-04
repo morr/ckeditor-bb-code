@@ -69,7 +69,6 @@ CKEDITOR.htmlDataProcessor.prototype =
     if (html == '<br>' || html == '<p><br></p>') {
       return "";
     }
-      console.log(html)
     // Convert <br> to line breaks.
     html = html.replace(/<br><\/p>/gi,"\n");
     html = html.replace( /<br(?=[ \/>]).*?>/gi, '\r\n') ;
