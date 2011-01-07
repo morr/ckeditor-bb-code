@@ -17,7 +17,6 @@ CKEDITOR.htmlDataProcessor.prototype =
 {
   toHtml : function( data, fixForBody )
   {
-
     // Convert < and > to their HTML entities.
     data = data.replace( /</g, '&lt;' ) ;
     data = data.replace( />/g, '&gt;' ) ;
