@@ -36,10 +36,14 @@ CKEDITOR.htmlDataProcessor.prototype = {
 
     // [img]
     data = data.replace(/\[img\](.*?)\[\/img\]/gi,'<img src="$1" />');
+    data = data.replace(/\[img class=([\w-]+)\](.*?)\[\/img\]/gi,'<img class="$1" src="$2" />');
 
     // [quote]
     data = data.replace(/\[quote\]/gi, '<blockquote>');
     data = data.replace(/\[\/quote]/gi, '</blockquote>');
+
+    // [poster]
+    data = data.replace(/\[poster\](.+?)\[\/poster]/gi, '<div class="text-poster">$1</div>');
 
     // [code]
     data = data.replace(/\[code\]/gi,'<code>');
@@ -88,12 +92,15 @@ CKEDITOR.htmlDataProcessor.prototype = {
     html = html.replace(/<img .*?src=(["']).+?(:.+?:?).gif\1.*?>/gi, '$2');
 
     // [img]
-    html = html.replace(/<img .*?src=(["'])(.+?)\1.*?>/gi, '[img]$2[/img]');
+    html = html.replace(/<img .*?class=(["'])([\w-]+)\1.*?src=(["'])(.+?)\3.*?>/gi, '[img class=$2]$4[/img]');
     html = html.replace(/<img .*?src=(["'])(.+?)\1.*?>/gi, '[img]$2[/img]');
 
     // [quote]
     html = html.replace(/<blockquote>/gi, '[quote]');
     html = html.replace(/\n*<\/blockquote>/gi, '[/quote]');
+
+    // [poster]
+    html = html.replace(/<div class="text-poster">([\s\S]+?)<\/div>/gi, '[poster]$1[/poster]');
 
     // [code]
     html = html.replace(/<code>/gi, '[code]');
