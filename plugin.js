@@ -59,7 +59,6 @@ CKEDITOR.htmlDataProcessor.prototype = {
         data = data.split(smiley).join('<img src="'+ this.editor.config.smiley_path + this.editor.config.smiley_images[i] + '" class="smiley" />');
       }
     }
-    console.log('toHtml');
 
     return data;
   },
@@ -67,7 +66,6 @@ CKEDITOR.htmlDataProcessor.prototype = {
     if (html == '<br>' || html == '<p><br></p>') {
       return "";
     }
-    console.log('toData');
     // Convert <br> to line breaks.
     html = html.replace(/<br><\/p>/gi,"\n");
     html = html.replace(/<br(?=[ \/>]).*?>/gi, '\r\n');
