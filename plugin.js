@@ -89,7 +89,7 @@ CKEDITOR.htmlDataProcessor.prototype = {
     html = html.replace(/<\/u>/gi, '[/u]');
 
     // smileys
-    html = html.replace(/<img .*?src=(["']).+?(:.+?:?).gif\1.*?>/gi, '$2');
+    html = html.replace(/<img .*?src=(["']).+?(:.+?:?|(\W)_\3).gif\1.*?>/gi, '$2');
 
     // [img]
     html = html.replace(/<img .*?class=(["'])([\w-]+)\1.*?src=(["'])(.+?)\3.*?>/gi, '[img class=$2]$4[/img]');
