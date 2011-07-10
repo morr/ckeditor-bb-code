@@ -34,6 +34,9 @@ CKEDITOR.htmlDataProcessor.prototype = {
     // [u]
     data = data.replace(/\[u\](.*?)\[\/u]/gi, '<u>$1</u>');
 
+    // [h3]
+    data = data.replace(/\[h3\](.*?)\[\/h3](?:<br ?\/?>|\n)?/gi, '<h3>$1</h3>');
+
     // [img]
     data = data.replace(/\[img\](.*?)\[\/img\]/gi,'<img src="$1" />');
     data = data.replace(/\[img class=([\w-]+)\](.*?)\[\/img\]/gi,'<img class="$1" src="$2" />');
@@ -48,6 +51,9 @@ CKEDITOR.htmlDataProcessor.prototype = {
     // [code]
     data = data.replace(/\[code\]/gi,'<code>');
     data = data.replace(/\[\/code\]/gi,'</code>');
+
+    // [size]
+    data = data.replace(/\[size=(\d+)\](.*?)\[\/size\]/gi,'<span style="font-size: $1px">$2</span>');
 
     // [color]
     data = data.replace(/\[color=(.*?)\](.*?)\[\/color\]/gi,'<span style="color: $1">$2</span>');
@@ -88,6 +94,10 @@ CKEDITOR.htmlDataProcessor.prototype = {
     html = html.replace(/<u>/gi, '[u]');
     html = html.replace(/<\/u>/gi, '[/u]');
 
+    // [h3]
+    html = html.replace(/<h3>/gi, '[h3]');
+    html = html.replace(/<\/h3>/gi, '[/h3]\n');
+
     // smileys
     html = html.replace(/<img .*?src=(["']).+?(:.+?:?|(\W)_\3).gif\1.*?>/gi, '$2');
 
@@ -107,8 +117,10 @@ CKEDITOR.htmlDataProcessor.prototype = {
     html = html.replace(/<\/code>/gi, '[/code]');
 
     // [color]
-    html = html.replace(/<span style=\"color: ?(.*?);\">(.*?)<\/span>/gi,"[color=$1]$2[/color]");
-    html = html.replace(/<font.*?color=\"(.*?)\".*?>(.*?)<\/font>/gi,"[color=$1]$2[/color]");
+    html = html.replace(/<span style="color: ?(.*?);?">(.*?)<\/span>/gi,"[color=$1]$2[/color]");
+
+    // [size]
+    html = html.replace(/<span style="font-size: ?(\d+)px;?">(.*?)<\/span>/gi,"[size=$1]$2[/size]");
 
     // Remove remaining tags.
     html = html.replace(/<[^>]+>/g, '');
