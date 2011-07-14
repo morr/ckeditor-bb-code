@@ -4,16 +4,19 @@
  * - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
  */
 
-CKEDITOR.plugins.add('bbcode',
-{
-  requires: ['htmlwriter'],
-  init: function(editor) {
-    editor.dataProcessor = new CKEDITOR.htmlDataProcessor(editor);
-  }
-});
 
-CKEDITOR.htmlDataProcessor.prototype = {
-  toHtml: function(data, fixForBody) {
+(function() {
+  CKEDITOR.plugins.add('bbcode',
+  {
+    requires: ['htmlwriter'],
+    init: function(editor) {
+      editor.dataProcessor = new CKEDITOR.htmlDataProcessor(editor);
+      editor.dataProcessor.toHtml = toHtml;
+      editor.dataProcessor.toDataFormat = toDataFormat;
+    }
+  });
+
+  var toHtml = function(data, fixForBody) {
     // Convert < and > to their HTML entities.
     data = data.replace(/</g, '&lt;');
     data = data.replace(/>/g, '&gt;');
@@ -67,8 +70,8 @@ CKEDITOR.htmlDataProcessor.prototype = {
     }
 
     return data;
-  },
-  toDataFormat : function(html, fixForBody ) {
+  };
+  var toDataFormat = function(html, fixForBody ) {
     if (html == '<br>' || html == '<p><br></p>') {
       return "";
     }
@@ -138,4 +141,4 @@ CKEDITOR.htmlDataProcessor.prototype = {
 
     return html;
   }
-};
+})();
