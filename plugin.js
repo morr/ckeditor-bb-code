@@ -106,6 +106,7 @@
 
     // [img]
     html = html.replace(/<img .*?class=(["'])([\w-]+)\1.*?src=(["'])(.+?)\3.*?>/gi, '[img class=$2]$4[/img]');
+    html = html.replace(/<img .*?src=(["'])(.+?)\1.*?class=(["'])([\w-]+)\3.*?>/gi, '[img class=$4]$2[/img]');
     html = html.replace(/<img .*?src=(["'])(.+?)\1.*?>/gi, '[img]$2[/img]');
 
     // [quote]
